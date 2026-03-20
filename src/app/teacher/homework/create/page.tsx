@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function CreateHomeworkPage() {
+function CreateHomeworkContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const classId = searchParams.get('class_id')
@@ -243,7 +243,7 @@ export default function CreateHomeworkPage() {
                         )}
                       </div>
                       <p className="text-gray-800">{q.content}</p>
-                      {q.options && (
+                      {q.options && Array.isArray(q.options) && (
                         <div className="mt-2 text-sm text-gray-600">
                           {q.options.map((opt: string, idx: number) => (
                             <span key={idx} className="mr-4">{String.fromCharCode(65 + idx)}. {opt}</span>
@@ -259,5 +259,13 @@ export default function CreateHomeworkPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function CreateHomeworkPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">加载中...</div>}>
+      <CreateHomeworkContent />
+    </Suspense>
   )
 }
