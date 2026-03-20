@@ -76,7 +76,7 @@ export default function CreateHomeworkPage() {
 
     const { data: homework, error: hwError } = await supabase.from('homeworks').insert({
       teacher_id: user.id,
-      class_id: parseInt(classId),
+      class_id: parseInt(classId || '0'),
       title: homeworkTitle,
       deadline: deadline || null
     }).select().single()
@@ -102,7 +102,7 @@ export default function CreateHomeworkPage() {
     }
 
     alert('作业布置成功！')
-    router.push('/teacher/homework')
+    router.push('/teacher')
   }
 
   if (loading) return <div className="p-8 text-center">加载中...</div>
@@ -245,7 +245,7 @@ export default function CreateHomeworkPage() {
                       <p className="text-gray-800">{q.content}</p>
                       {q.options && (
                         <div className="mt-2 text-sm text-gray-600">
-                          {q.options.map((opt, idx) => (
+                          {q.options.map((opt: string, idx: number) => (
                             <span key={idx} className="mr-4">{String.fromCharCode(65 + idx)}. {opt}</span>
                           ))}
                         </div>
