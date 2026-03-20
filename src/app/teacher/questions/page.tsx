@@ -259,9 +259,9 @@ export default function QuestionsPage() {
                         )}
                       </div>
                       <p className="text-gray-800">{q.content}</p>
-                      {q.options && (
+                      {q.options && Array.isArray(q.options) && (
                         <div className="mt-2 text-sm text-gray-600">
-                          {q.options.map((opt, idx) => (
+                          {q.options.map((opt: string, idx: number) => (
                             <span key={idx} className="mr-4">{String.fromCharCode(65 + idx)}. {opt}</span>
                           ))}
                         </div>
