@@ -33,8 +33,12 @@ export default function StudentDashboard() {
       .select('classes(*)')
       .eq('student_id', user.id)
 
-    const classIds = classes?.map(c => c.classes?.id).filter(id => id) || []
-    setMyClasses(classes?.map(c => c.classes).filter(c => c) || [])
+    const classesList = classes || []
+    setMyClasses(classesList.map((c: any) => c.classes).filter((c: any) => c) || [])
+
+    const classIds = classesList
+      .map((c: any) => c.classes?.id)
+      .filter((id: any) => id) || []
 
     if (classIds.length > 0) {
       const { data: homeworksData } = await supabase
@@ -144,7 +148,7 @@ export default function StudentDashboard() {
               </div>
             ) : (
               <div className="space-y-3">
-                {myClasses.map(cls => (
+                {myClasses.map((cls: any) => (
                   <div key={cls.id} className="border p-4 rounded-lg">
                     <h3 className="font-bold">{cls.name}</h3>
                     <p className="text-sm text-gray-500 mt-1">班级码：{cls.class_code}</p>
