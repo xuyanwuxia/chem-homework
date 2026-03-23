@@ -104,12 +104,20 @@ export default function QuestionsPage() {
       <div className="max-w-6xl mx-auto p-4">
         <div className="bg-white rounded-lg shadow p-4 mb-4 flex justify-between items-center">
           <h2 className="text-lg font-bold">题目列表（共 {questions.length} 题）</h2>
-          <button
-            onClick={() => setShowAdd(!showAdd)}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            {showAdd ? '取消添加' : '+ 添加题目'}
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => router.push('/teacher/questions/import')}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              📥 批量导入
+            </button>
+            <button
+              onClick={() => setShowAdd(!showAdd)}
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            >
+              {showAdd ? '取消添加' : '+ 添加题目'}
+            </button>
+          </div>
         </div>
 
         {showAdd && (
